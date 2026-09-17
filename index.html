@@ -3,86 +3,964 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="ARX Browser — Your Browser. Your Web.">
-<title>ARX Browser</title>
+
+<meta name="description" content="ARX Browser — a lightweight WebKitGTK browser for Linux.">
+<meta name="theme-color" content="#080808">
+
+<title>ARX Browser — Your Browser. Your Web.</title>
+
 <style>
-:root{--bg:#070707;--card:#101012;--line:#252529;--text:#f5f5f7;--muted:#929298;--red:#ff3040;--max:1100px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% -10%,#ff30401c,transparent 38%),var(--bg);color:var(--text);font:15px/1.6 Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-a{color:inherit;text-decoration:none}.wrap{width:min(calc(100% - 40px),var(--max));margin:auto}
-nav{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff0b}
-.brand{font-weight:800;letter-spacing:-.03em;display:flex;gap:10px;align-items:center}.mark{display:grid;place-items:center;width:31px;height:31px;border:1px solid #ff304066;color:var(--red);font-size:10px;font-weight:900;transform:skew(-7deg)}
-.nav{display:flex;gap:24px;color:var(--muted);font-size:13px}.nav a:hover{color:white}
-.hero{text-align:center;padding:105px 0 100px}.pill{display:inline-block;border:1px solid #ff30404a;background:#ff30400d;color:#ff9ba3;border-radius:999px;padding:6px 12px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-h1{font-size:clamp(70px,14vw,145px);line-height:.85;letter-spacing:-.08em;margin:25px 0 15px}.red{color:var(--red)}
-.tag{font-size:22px;color:#d0d0d3;margin:0}.sub{max-width:650px;margin:12px auto;color:var(--muted)}
-.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-block;padding:11px 18px;border:1px solid var(--line);border-radius:9px;background:var(--card);font-weight:700;font-size:13px}.btn:hover{border-color:#45454b}.primary{background:var(--red);border-color:var(--red)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:60px;text-align:left}.stat,.feature,.terminal{background:linear-gradient(145deg,#111114,#0b0b0d);border:1px solid var(--line);border-radius:13px;padding:20px}.stat b{display:block}.stat span,.feature p{color:var(--muted);font-size:13px}
-section{padding:85px 0;border-top:1px solid #ffffff09}.heading{max-width:700px;margin-bottom:30px}.heading h2{font-size:clamp(30px,5vw,48px);line-height:1;margin:0 0 10px;letter-spacing:-.05em}.heading p{color:var(--muted)}
-.features{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.num{color:var(--red);font:800 11px monospace;letter-spacing:.1em}.feature h3{margin:8px 0 4px;font-size:18px}.feature p{margin:0}
-.tech{display:grid;grid-template-columns:1.2fr .8fr;gap:13px}.terminal{background:#050506;overflow:auto}.terminal pre{margin:0;font:13px/1.8 monospace;color:#d8d8dc}
-.release{text-align:center;border:1px solid #ff304033;border-radius:17px;padding:70px 20px;background:radial-gradient(circle at 50% 0,#ff30401c,transparent 55%),var(--card)}.release h2{font-size:clamp(32px,5vw,54px);margin:0;letter-spacing:-.05em}.release p{color:var(--muted);max-width:620px;margin:10px auto 25px}
-footer{text-align:center;color:#66666c;font-size:12px;padding:35px 0 45px}
-@media(max-width:720px){.nav{display:none}.stats,.features,.tech{grid-template-columns:1fr}.hero{padding-top:75px}}
+:root{
+    --bg:#080808;
+    --bg2:#0c0c0e;
+    --panel:#101012;
+    --panel2:#141416;
+    --line:#242428;
+    --line2:#303035;
+    --text:#f2f2f3;
+    --muted:#8c8c93;
+    --dim:#5e5e64;
+    --red:#ff3040;
+    --red2:#ff5662;
+    --green:#65d391;
+    --max:1120px;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:
+        radial-gradient(circle at 50% -15%,#ff304012,transparent 34%),
+        var(--bg);
+    color:var(--text);
+    font:15px/1.65 Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+.wrap{
+    width:min(calc(100% - 40px),var(--max));
+    margin:auto;
+}
+
+/* NAV */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:#080808dd;
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid #ffffff08;
+}
+
+nav{
+    height:68px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:800;
+    letter-spacing:-.03em;
+}
+
+.mark{
+    width:30px;
+    height:30px;
+    display:grid;
+    place-items:center;
+    border:1px solid #ff304060;
+    color:var(--red);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:-.08em;
+    transform:skew(-7deg);
+}
+
+.nav{
+    display:flex;
+    gap:25px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.nav a{
+    transition:.2s ease;
+}
+
+.nav a:hover{
+    color:#fff;
+}
+
+/* HERO */
+
+.hero{
+    padding:115px 0 90px;
+    border-bottom:1px solid #ffffff09;
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.35fr .65fr;
+    gap:60px;
+    align-items:end;
+}
+
+.eyebrow{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:#b8b8bd;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+}
+
+.dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--red);
+    box-shadow:0 0 14px #ff304080;
+}
+
+h1{
+    margin:22px 0 18px;
+    font-size:clamp(76px,13vw,150px);
+    line-height:.82;
+    letter-spacing:-.095em;
+    font-weight:850;
+}
+
+.red{
+    color:var(--red);
+}
+
+.hero-copy{
+    max-width:650px;
+    color:#b7b7bd;
+    font-size:18px;
+    line-height:1.65;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:30px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:42px;
+    padding:0 17px;
+    border:1px solid var(--line2);
+    border-radius:8px;
+    background:var(--panel);
+    font-size:13px;
+    font-weight:750;
+    transition:.18s ease;
+}
+
+.btn:hover{
+    border-color:#49494f;
+    transform:translateY(-1px);
+}
+
+.primary{
+    color:#fff;
+    background:var(--red);
+    border-color:var(--red);
+}
+
+.primary:hover{
+    background:var(--red2);
+    border-color:var(--red2);
+}
+
+/* RELEASE SIDE CARD */
+
+.release-card{
+    padding:22px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:
+        linear-gradient(145deg,#151517,#0d0d0f);
+}
+
+.release-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:28px;
+}
+
+.release-label{
+    color:var(--dim);
+    font:10px monospace;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:#a9a9af;
+    font-size:11px;
+}
+
+.status i{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--green);
+}
+
+.version{
+    font-size:35px;
+    font-weight:800;
+    letter-spacing:-.06em;
+}
+
+.version span{
+    color:var(--red);
+}
+
+.release-meta{
+    margin-top:8px;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.release-line{
+    height:1px;
+    background:var(--line);
+    margin:22px 0;
+}
+
+.release-row{
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.release-row strong{
+    color:#ddd;
+    font-weight:600;
+}
+
+/* SECTIONS */
+
+section{
+    padding:90px 0;
+    border-bottom:1px solid #ffffff09;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:30px;
+    margin-bottom:35px;
+}
+
+.section-number{
+    color:var(--red);
+    font:11px monospace;
+    letter-spacing:.12em;
+}
+
+h2{
+    margin:7px 0 0;
+    font-size:clamp(34px,5vw,54px);
+    line-height:1;
+    letter-spacing:-.065em;
+}
+
+.section-intro{
+    max-width:500px;
+    margin:0;
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* FEATURES */
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.feature{
+    min-height:190px;
+    padding:22px;
+    border:1px solid var(--line);
+    border-radius:11px;
+    background:var(--panel);
+    transition:.2s ease;
+}
+
+.feature:hover{
+    border-color:#3a3a3f;
+    background:var(--panel2);
+}
+
+.feature-num{
+    color:var(--red);
+    font:11px monospace;
+}
+
+.feature h3{
+    margin:35px 0 7px;
+    font-size:17px;
+    letter-spacing:-.02em;
+}
+
+.feature p{
+    margin:0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* RELEASE */
+
+.release{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:45px;
+    padding:34px;
+    border:1px solid #ff30402c;
+    border-radius:13px;
+    background:
+        radial-gradient(circle at 85% 0,#ff304012,transparent 45%),
+        var(--panel);
+}
+
+.release h3{
+    margin:5px 0 8px;
+    font-size:28px;
+    letter-spacing:-.05em;
+}
+
+.release p{
+    margin:0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.changelog{
+    border-left:1px solid var(--line);
+    padding-left:30px;
+}
+
+.changelog-title{
+    margin-bottom:15px;
+    color:#ddd;
+    font-size:12px;
+    font-weight:750;
+}
+
+.changelog ul{
+    padding:0;
+    margin:0;
+    list-style:none;
+}
+
+.changelog li{
+    position:relative;
+    padding:7px 0 7px 16px;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.changelog li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:15px;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:var(--red);
+}
+
+/* INSTALL */
+
+.install{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:14px;
+}
+
+.install-info,
+.terminal{
+    border:1px solid var(--line);
+    border-radius:11px;
+    background:var(--panel);
+}
+
+.install-info{
+    padding:25px;
+}
+
+.install-info h3{
+    margin:0 0 9px;
+    font-size:20px;
+}
+
+.install-info p{
+    margin:0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.terminal{
+    overflow:hidden;
+    background:#050506;
+}
+
+.terminal-bar{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    height:34px;
+    padding:0 13px;
+    border-bottom:1px solid #ffffff0a;
+}
+
+.terminal-bar i{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#333338;
+}
+
+.terminal-title{
+    margin-left:7px;
+    color:#55555b;
+    font:10px monospace;
+}
+
+pre{
+    margin:0;
+    padding:22px;
+    overflow:auto;
+    color:#c9c9ce;
+    font:12px/1.8 "SFMono-Regular",Consolas,monospace;
+}
+
+.cmd{
+    color:var(--red);
+}
+
+/* STACK */
+
+.stack{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--line);
+    border-radius:11px;
+    overflow:hidden;
+}
+
+.stack-item{
+    padding:23px;
+    background:var(--panel);
+    border-right:1px solid var(--line);
+}
+
+.stack-item:last-child{
+    border-right:0;
+}
+
+.stack-item small{
+    display:block;
+    margin-bottom:8px;
+    color:var(--dim);
+    font:10px monospace;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+}
+
+.stack-item strong{
+    font-size:14px;
+}
+
+.stack-item p{
+    margin:5px 0 0;
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* FOOTER */
+
+footer{
+    padding:38px 0 50px;
+    color:#606066;
+    font-size:11px;
+}
+
+.footer-inner{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.footer-links{
+    display:flex;
+    gap:18px;
+}
+
+.footer-links a:hover{
+    color:#aaa;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+    .hero-grid,
+    .release,
+    .install{
+        grid-template-columns:1fr;
+    }
+
+    .features{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stack{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stack-item:nth-child(2){
+        border-right:0;
+    }
+
+    .stack-item:nth-child(-n+2){
+        border-bottom:1px solid var(--line);
+    }
+
+    .changelog{
+        border-left:0;
+        border-top:1px solid var(--line);
+        padding:25px 0 0;
+    }
+}
+
+@media(max-width:600px){
+    .wrap{
+        width:min(calc(100% - 28px),var(--max));
+    }
+
+    .nav{
+        display:none;
+    }
+
+    .hero{
+        padding:80px 0 70px;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+
+    .stack{
+        grid-template-columns:1fr;
+    }
+
+    .stack-item{
+        border-right:0;
+        border-bottom:1px solid var(--line);
+    }
+
+    .stack-item:last-child{
+        border-bottom:0;
+    }
+
+    .section-head{
+        display:block;
+    }
+
+    .section-intro{
+        margin-top:15px;
+    }
+
+    .footer-inner{
+        flex-direction:column;
+    }
+}
 </style>
 </head>
+
 <body>
-<header><div class="wrap"><nav>
-<a class="brand" href="#"><span class="mark">ARX</span><span>ARX Browser</span></a>
-<div class="nav"><a href="#features">Features</a><a href="#technology">Technology</a><a href="#release">Release</a></div>
-</nav></div></header>
+
+<header>
+<div class="wrap">
+<nav>
+<a class="brand" href="#">
+    <span class="mark">ARX</span>
+    <span>ARX Browser</span>
+</a>
+
+<div class="nav">
+    <a href="#features">Features</a>
+    <a href="#release">Release</a>
+    <a href="#technology">Technology</a>
+    <a href="https://github.com/lulitaxu/ARXBrowser-Releases">GitHub</a>
+</div>
+</nav>
+</div>
+</header>
 
 <main>
-<section class="hero"><div class="wrap">
-<div class="pill">Version 0.3.0 · Linux x86_64</div>
+
+<!-- HERO -->
+
+<section class="hero">
+<div class="wrap">
+
+<div class="hero-grid">
+
+<div>
+<div class="eyebrow">
+    <span class="dot"></span>
+    Linux · x86_64 · v0.4.0
+</div>
+
 <h1>AR<span class="red">X</span></h1>
-<p class="tag">Your Browser. Your Web.</p>
-<p class="sub">A lightweight WebKitGTK-based browser built for Linux, with a custom interface and a simple, responsive browsing experience.</p>
+
+<div class="hero-copy">
+    A browser built from the ground up around a simple idea:
+    keep the interface small, the stack native, and the user in control.
+</div>
+
 <div class="actions">
-<a class="btn primary" href="https://github.com/lulitaxu/ARXBrowser-Releases/releases/latest">Download ARX Browser</a>
-<a class="btn" href="https://github.com/lulitaxu/ARXBrowser-Releases">GitHub</a>
-</div>
-<div class="stats">
-<div class="stat"><b>C++</b><span>Native application code</span></div>
-<div class="stat"><b>WebKitGTK 4.1</b><span>Web rendering engine</span></div>
-<div class="stat"><b>GTK3</b><span>Linux desktop interface</span></div>
-</div>
-</div></section>
+    <a class="btn primary"
+       href="https://github.com/lulitaxu/ARXBrowser-Releases/releases/latest">
+        Download
+    </a>
 
-<section id="features"><div class="wrap">
-<div class="heading"><h2>Built around the essentials.</h2><p>ARX Browser is an early release with the core browsing experience in place and more features planned.</p></div>
+    <a class="btn"
+       href="https://github.com/lulitaxu/ARXBrowser-Releases">
+        View releases
+    </a>
+</div>
+</div>
+
+<div class="release-card">
+
+<div class="release-top">
+    <span class="release-label">Latest build</span>
+    <span class="status"><i></i> Available</span>
+</div>
+
+<div class="version">
+    <span>0.4</span>.0
+</div>
+
+<div class="release-meta">
+    Linux x86_64 · binary release
+</div>
+
+<div class="release-line"></div>
+
+<div class="release-row">
+    <span>Engine</span>
+    <strong>WebKitGTK 4.1</strong>
+</div>
+
+<div class="release-row">
+    <span>Interface</span>
+    <strong>GTK3</strong>
+</div>
+
+<div class="release-row">
+    <span>Language</span>
+    <strong>C++20</strong>
+</div>
+
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- FEATURES -->
+
+<section id="features">
+<div class="wrap">
+
+<div class="section-head">
+<div>
+    <div class="section-number">01 / FEATURES</div>
+    <h2>The browser, stripped back.</h2>
+</div>
+
+<p class="section-intro">
+    ARX focuses on the parts of a desktop browser you actually interact with,
+    without building a second operating system around them.
+</p>
+</div>
+
 <div class="features">
-<article class="feature"><div class="num">01</div><h3>Web Browsing</h3><p>Modern websites rendered through WebKitGTK 4.1.</p></article>
-<article class="feature"><div class="num">02</div><h3>Multi-Tab</h3><p>Multiple pages with tab switching, titles, closing, and reopening recently closed tabs.</p></article>
-<article class="feature"><div class="num">03</div><h3>Navigation</h3><p>Back, forward, reload, stop, and address-bar navigation in a compact toolbar.</p></article>
-<article class="feature"><div class="num">04</div><h3>Privacy Controls</h3><p>Browser privacy settings are integrated directly into the ARX interface.</p></article>
-</div></div></section>
 
-<section id="technology"><div class="wrap">
-<div class="heading"><h2>Native Linux stack.</h2><p>ARX uses established Linux desktop technologies rather than shipping a full Chromium-based runtime.</p></div>
-<div class="tech">
-<div class="terminal"><pre><span class="red">$</span> file arx-browser
+<article class="feature">
+    <div class="feature-num">01</div>
+    <h3>Web browsing</h3>
+    <p>
+        Modern pages rendered through WebKitGTK 4.1 with a native Linux
+        application shell.
+    </p>
+</article>
 
-ELF 64-bit LSB pie executable
-x86-64
-dynamically linked
-stripped
+<article class="feature">
+    <div class="feature-num">02</div>
+    <h3>Tabs</h3>
+    <p>
+        Multiple tabs, switching, closing, reopening recently closed pages,
+        and private tabs.
+    </p>
+</article>
 
-<span class="red">$</span> stack
+<article class="feature">
+    <div class="feature-num">03</div>
+    <h3>Navigation</h3>
+    <p>
+        Address-bar navigation with URL parsing, back, forward, reload,
+        keyboard shortcuts, and search handling.
+    </p>
+</article>
 
-C++20
-GTK3
-WebKitGTK 4.1
-CMake</pre></div>
-<div class="feature"><div class="num">DESIGN</div><h3>Lightweight by intent.</h3><p>ARX is being developed with older and lower-resource Linux hardware in mind. The current release targets Linux x86_64 systems with compatible GTK3 and WebKitGTK 4.1 libraries.</p></div>
-</div></div></section>
+<article class="feature">
+    <div class="feature-num">04</div>
+    <h3>Privacy controls</h3>
+    <p>
+        Integrated privacy settings, private browsing contexts, website-data
+        controls, and configurable browser behaviour.
+    </p>
+</article>
 
-<section id="release"><div class="wrap"><div class="release">
-<h2>ARX Browser <span class="red">0.3.0</span></h2>
-<p>The first public binary release for Linux x86_64. Download the release archive from GitHub.</p>
-<a class="btn primary" href="https://github.com/lulitaxu/ARXBrowser-Releases/releases/latest">Get the latest release</a>
-</div></div></section>
+<article class="feature">
+    <div class="feature-num">05</div>
+    <h3>Downloads</h3>
+    <p>
+        Download handling with destination selection, progress tracking,
+        filesystem storage, and desktop notifications.
+    </p>
+</article>
+
+<article class="feature">
+    <div class="feature-num">06</div>
+    <h3>Browser data</h3>
+    <p>
+        History and bookmarks are handled locally rather than relying on an
+        online account or browser sync service.
+    </p>
+</article>
+
+</div>
+</div>
+</section>
+
+
+<!-- RELEASE -->
+
+<section id="release">
+<div class="wrap">
+
+<div class="section-head">
+<div>
+    <div class="section-number">02 / RELEASE</div>
+    <h2>Version 0.4.0</h2>
+</div>
+
+<p class="section-intro">
+    The current public Linux x86_64 build.
+</p>
+</div>
+
+<div class="release">
+
+<div>
+    <h3>ARX Browser <span class="red">0.4.0</span></h3>
+
+    <p>
+        A packaged Linux build of ARX Browser. The public repository contains
+        release artifacts rather than the browser's development source tree.
+    </p>
+
+    <div class="actions">
+        <a class="btn primary"
+           href="https://github.com/lulitaxu/ARXBrowser-Releases/releases/latest">
+            Get v0.4.0
+        </a>
+
+        <a class="btn"
+           href="https://github.com/lulitaxu/ARXBrowser-Releases">
+            Release repository
+        </a>
+    </div>
+</div>
+
+<div class="changelog">
+
+<div class="changelog-title">WHAT'S IN THIS BUILD</div>
+
+<ul>
+    <li>Download manager with filesystem destinations</li>
+    <li>Desktop download start and completion notifications</li>
+    <li>URL parsing and navigation handling</li>
+    <li>Private browsing context</li>
+    <li>Privacy and browser-data controls</li>
+    <li>Improved browser toolbar and settings interface</li>
+</ul>
+
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- INSTALL -->
+
+<section>
+<div class="wrap">
+
+<div class="section-head">
+<div>
+    <div class="section-number">03 / INSTALL</div>
+    <h2>Download. Extract. Run.</h2>
+</div>
+
+<p class="section-intro">
+    The release archive contains the packaged ARX Browser binary for
+    compatible Linux x86_64 systems.
+</p>
+</div>
+
+<div class="install">
+
+<div class="install-info">
+    <h3>Linux x86_64</h3>
+
+    <p>
+        Download the latest archive, extract it, and launch
+        <strong>arx-browser</strong>.
+    </p>
+</div>
+
+<div class="terminal">
+
+<div class="terminal-bar">
+    <i></i><i></i><i></i>
+    <span class="terminal-title">terminal</span>
+</div>
+
+<pre><span class="cmd">$</span> tar -xzf ARX-Browser-v0.4.0-Linux-x86_64.tar.gz
+
+<span class="cmd">$</span> cd ARX-Browser-v0.4.0-Linux-x86_64
+
+<span class="cmd">$</span> ./arx-browser</pre>
+
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- TECHNOLOGY -->
+
+<section id="technology">
+<div class="wrap">
+
+<div class="section-head">
+<div>
+    <div class="section-number">04 / TECHNOLOGY</div>
+    <h2>A small native stack.</h2>
+</div>
+
+<p class="section-intro">
+    ARX uses established Linux components instead of shipping a complete
+    Chromium-style runtime.
+</p>
+</div>
+
+<div class="stack">
+
+<div class="stack-item">
+    <small>Language</small>
+    <strong>C++20</strong>
+    <p>Native application code.</p>
+</div>
+
+<div class="stack-item">
+    <small>Interface</small>
+    <strong>GTK3</strong>
+    <p>Linux desktop UI.</p>
+</div>
+
+<div class="stack-item">
+    <small>Engine</small>
+    <strong>WebKitGTK 4.1</strong>
+    <p>Web rendering and browser APIs.</p>
+</div>
+
+<div class="stack-item">
+    <small>Build</small>
+    <strong>CMake</strong>
+    <p>Project build system.</p>
+</div>
+
+</div>
+
+</div>
+</section>
+
 </main>
 
-<footer>ARX Browser · Your Browser. Your Web.</footer>
+
+<footer>
+<div class="wrap">
+<div class="footer-inner">
+
+<div>
+    ARX Browser · Your Browser. Your Web.
+</div>
+
+<div class="footer-links">
+    <a href="https://github.com/lulitaxu/ARXBrowser-Releases">GitHub</a>
+    <a href="#features">Features</a>
+    <a href="#release">Release</a>
+</div>
+
+</div>
+</div>
+</footer>
+
 </body>
 </html>
+
