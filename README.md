@@ -6,7 +6,7 @@ ARX Browser is focused on keeping the browser simple, fast, and under direct con
 
 ## Current Release
 
-**v0.3.0 — Linux x86_64**
+**v0.4.0 — Linux x86_64**
 
 [Download ARX Browser](https://github.com/lulitaxu/ARXBrowser-Releases/releases/latest)
 
