@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="ARX Browser — Your Browser. Your Web.">
+<title>ARX Browser</title>
+<style>
+:root{--bg:#070707;--card:#101012;--line:#252529;--text:#f5f5f7;--muted:#929298;--red:#ff3040;--max:1100px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% -10%,#ff30401c,transparent 38%),var(--bg);color:var(--text);font:15px/1.6 Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}.wrap{width:min(calc(100% - 40px),var(--max));margin:auto}
+nav{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff0b}
+.brand{font-weight:800;letter-spacing:-.03em;display:flex;gap:10px;align-items:center}.mark{display:grid;place-items:center;width:31px;height:31px;border:1px solid #ff304066;color:var(--red);font-size:10px;font-weight:900;transform:skew(-7deg)}
+.nav{display:flex;gap:24px;color:var(--muted);font-size:13px}.nav a:hover{color:white}
+.hero{text-align:center;padding:105px 0 100px}.pill{display:inline-block;border:1px solid #ff30404a;background:#ff30400d;color:#ff9ba3;border-radius:999px;padding:6px 12px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(70px,14vw,145px);line-height:.85;letter-spacing:-.08em;margin:25px 0 15px}.red{color:var(--red)}
+.tag{font-size:22px;color:#d0d0d3;margin:0}.sub{max-width:650px;margin:12px auto;color:var(--muted)}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-block;padding:11px 18px;border:1px solid var(--line);border-radius:9px;background:var(--card);font-weight:700;font-size:13px}.btn:hover{border-color:#45454b}.primary{background:var(--red);border-color:var(--red)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:60px;text-align:left}.stat,.feature,.terminal{background:linear-gradient(145deg,#111114,#0b0b0d);border:1px solid var(--line);border-radius:13px;padding:20px}.stat b{display:block}.stat span,.feature p{color:var(--muted);font-size:13px}
+section{padding:85px 0;border-top:1px solid #ffffff09}.heading{max-width:700px;margin-bottom:30px}.heading h2{font-size:clamp(30px,5vw,48px);line-height:1;margin:0 0 10px;letter-spacing:-.05em}.heading p{color:var(--muted)}
+.features{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.num{color:var(--red);font:800 11px monospace;letter-spacing:.1em}.feature h3{margin:8px 0 4px;font-size:18px}.feature p{margin:0}
+.tech{display:grid;grid-template-columns:1.2fr .8fr;gap:13px}.terminal{background:#050506;overflow:auto}.terminal pre{margin:0;font:13px/1.8 monospace;color:#d8d8dc}
+.release{text-align:center;border:1px solid #ff304033;border-radius:17px;padding:70px 20px;background:radial-gradient(circle at 50% 0,#ff30401c,transparent 55%),var(--card)}.release h2{font-size:clamp(32px,5vw,54px);margin:0;letter-spacing:-.05em}.release p{color:var(--muted);max-width:620px;margin:10px auto 25px}
+footer{text-align:center;color:#66666c;font-size:12px;padding:35px 0 45px}
+@media(max-width:720px){.nav{display:none}.stats,.features,.tech{grid-template-columns:1fr}.hero{padding-top:75px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav>
+<a class="brand" href="#"><span class="mark">ARX</span><span>ARX Browser</span></a>
+<div class="nav"><a href="#features">Features</a><a href="#technology">Technology</a><a href="#release">Release</a></div>
+</nav></div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+<div class="pill">Version 0.3.0 · Linux x86_64</div>
+<h1>AR<span class="red">X</span></h1>
+<p class="tag">Your Browser. Your Web.</p>
+<p class="sub">A lightweight WebKitGTK-based browser built for Linux, with a custom interface and a simple, responsive browsing experience.</p>
+<div class="actions">
+<a class="btn primary" href="https://github.com/lulitaxu/ARXBrowser-Releases/releases/latest">Download ARX Browser</a>
+<a class="btn" href="https://github.com/lulitaxu/ARXBrowser-Releases">GitHub</a>
+</div>
+<div class="stats">
+<div class="stat"><b>C++</b><span>Native application code</span></div>
+<div class="stat"><b>WebKitGTK 4.1</b><span>Web rendering engine</span></div>
+<div class="stat"><b>GTK3</b><span>Linux desktop interface</span></div>
+</div>
+</div></section>
+
+<section id="features"><div class="wrap">
+<div class="heading"><h2>Built around the essentials.</h2><p>ARX Browser is an early release with the core browsing experience in place and more features planned.</p></div>
+<div class="features">
+<article class="feature"><div class="num">01</div><h3>Web Browsing</h3><p>Modern websites rendered through WebKitGTK 4.1.</p></article>
+<article class="feature"><div class="num">02</div><h3>Multi-Tab</h3><p>Multiple pages with tab switching, titles, closing, and reopening recently closed tabs.</p></article>
+<article class="feature"><div class="num">03</div><h3>Navigation</h3><p>Back, forward, reload, stop, and address-bar navigation in a compact toolbar.</p></article>
+<article class="feature"><div class="num">04</div><h3>Privacy Controls</h3><p>Browser privacy settings are integrated directly into the ARX interface.</p></article>
+</div></div></section>
+
+<section id="technology"><div class="wrap">
+<div class="heading"><h2>Native Linux stack.</h2><p>ARX uses established Linux desktop technologies rather than shipping a full Chromium-based runtime.</p></div>
+<div class="tech">
+<div class="terminal"><pre><span class="red">$</span> file arx-browser
+
+ELF 64-bit LSB pie executable
+x86-64
+dynamically linked
+stripped
+
+<span class="red">$</span> stack
+
+C++20
+GTK3
+WebKitGTK 4.1
+CMake</pre></div>
+<div class="feature"><div class="num">DESIGN</div><h3>Lightweight by intent.</h3><p>ARX is being developed with older and lower-resource Linux hardware in mind. The current release targets Linux x86_64 systems with compatible GTK3 and WebKitGTK 4.1 libraries.</p></div>
+</div></div></section>
+
+<section id="release"><div class="wrap"><div class="release">
+<h2>ARX Browser <span class="red">0.3.0</span></h2>
+<p>The first public binary release for Linux x86_64. Download the release archive from GitHub.</p>
+<a class="btn primary" href="https://github.com/lulitaxu/ARXBrowser-Releases/releases/latest">Get the latest release</a>
+</div></div></section>
+</main>
+
+<footer>ARX Browser · Your Browser. Your Web.</footer>
+</body>
+</html>
