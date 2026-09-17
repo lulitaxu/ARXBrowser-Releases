@@ -1,14 +1,75 @@
-# ARX Browser — Public Release Website
+# ARX Browser
 
-GitHub Pages landing page for ARX Browser.
+A lightweight Linux browser built from scratch in C++ using GTK3 and WebKitGTK.
 
-## Publish
+ARX Browser is focused on keeping the browser simple, fast, and under direct control of the project rather than trying to be another full-scale Chromium or Firefox clone.
 
-1. Create a public GitHub repository, for example `ARXBrowser-Releases`.
-2. Put `index.html` in the repository root.
-3. Create a GitHub Release and upload `ARX-Browser-v0.3.0-Linux-x86_64.tar.gz`.
-4. Replace `YOUR_USERNAME` in `index.html` with your GitHub username.
-5. Go to **Settings → Pages → Deploy from a branch → main → /(root)**.
-6. Open `https://YOUR_USERNAME.github.io/ARXBrowser-Releases/`.
+## Current Release
 
-The public website/release repository does not need to contain your C++ source code.
+**v0.3.0 — Linux x86_64**
+
+[Download ARX Browser](https://github.com/lulitaxu/ARXBrowser-Releases/releases/latest)
+
+## Features
+
+- Web browsing with WebKitGTK 4.1
+- Multiple tabs
+- Address bar
+- Back / Forward navigation
+- Reload
+- New tab
+- ARX home page
+- Basic privacy controls
+- Lightweight custom interface
+
+## Requirements
+
+Currently built and tested on Linux x86_64.
+
+The binary requires:
+
+- GTK3
+- WebKitGTK 4.1
+
+### Arch Linux
+
+```bash
+sudo pacman -S gtk3 webkit2gtk-4.1
+```
+```Installation
+```
+
+Download the latest release:
+
+ARX Browser Releases
+
+Then extract the archive:
+```bash
+tar -xzf ARX-Browser-v0.3.0-Linux-x86_64.tar.gz
+```
+Enter the extracted directory:
+```bash
+cd ARX-Browser
+```
+Run:
+```bash
+./arx-browser
+```
+Project
+
+ARX Browser is written in C++.
+
+The current browser UI is built with:
+
+GTK3
+WebKitGTK 4.1
+CMake
+C++20
+Status
+
+ARX Browser is still an early-stage project.
+
+The current release is mainly focused on the browser interface, tabs, navigation controls, and getting the core browser architecture in place.
+
+More browser functionality will be added as development continues.
+
